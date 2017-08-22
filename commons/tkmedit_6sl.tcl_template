@@ -1,0 +1,95 @@
+# Script for setting up and taking screen shots. THis was modified from the scripting reference is available at:
+# https://surfer.nmr.mgh.harvard.edu/fswiki/TkMeditGuide/TkMeditReference/TkMeditScripting
+
+# SetCursor coordinateSpace x y z 
+# coordinateSpace:
+# 0     volume index
+# 1     RAS
+# 2     Talairach
+SetCursor 0 128 98 128
+
+# Use SetZoomLevel to zoom in and out. 1 is normal, >1 is zoomed in,
+# and 0-1 is zoomed out.
+# SetZoomLevel level 
+SetZoomLevel 1
+
+# SetOrientation orientation 
+# orientation:
+# 0     coronal
+# 1     horizontal
+# 2     sagittal
+SetOrientation 1
+
+# This command turns on and off various display flags.
+# SetDisplayFlag flag value 
+# flag:
+# 1     Aux Volume - set to 1 to show aux volume
+# 2     Anatomical Volume - set to 0 to hide main and aux volume
+# 3     Cursor
+# 4     Main Surface
+# 5     Original Surface
+# 6     Pial Surface
+# 7     Interpolate Surface Vertices
+# 8     Surface Vertices
+# 9     Control Points
+# 10    Selection
+# 11    Functional Overlay
+# 12    Functional Color Scale Bar
+# 13    Mask to Functional Overlay
+# 14    Histogram Percent Change
+# 15    Segmentation Volume Overlay
+# 16    Aux Segmentation Volume
+# 17    Segmentation Label Volume Count
+# 18    DTI Overlay
+# 20    Focus Frame
+# 21    Undoable Voxels
+# 22    Axes
+# 23    Maximum Intensity Porjection
+# 24    Head Points
+# 25    Verbose GCA DumpSetDisplayFlag 
+
+# Turn cursor display off.
+SetDisplayFlag 3 0
+
+# Turn the axes on.
+SetDisplayFlag 22 1
+
+#Grabs the subjects name
+set subject __SESSID__
+
+# This sets the view to a single view, and takes three screenshots, one of each orientation.
+SetDisplayConfig 1 1 0
+foreach orientation {0 1 2} label {coronal axial sagittal} {
+    SetOrientation $orientation
+    SetZoomLevel 2
+    SetCursor 0 128 98 128
+    SetSlice 128
+    SetDisplayFlag 22 1
+    RedrawScreen
+    SetDisplayFlag 22 1
+    SetZoomLevel 2
+    RedrawScreen
+    SetDisplayFlag 22 1
+    SaveTIFF $env(SUBJECTS_DIR)/${subject}/tmp/${subject}_${label}_1.tif
+}
+
+foreach orientation {0 1 2} label {coronal axial sagittal} {
+    SetOrientation $orientation
+    SetZoomLevel 1
+    SetCursor 0 128 98 128
+    SetSlice 128
+    SetDisplayFlag 22 1
+    RedrawScreen
+    SetDisplayFlag 22 1
+    SetZoomLevel 1
+    RedrawScreen
+    SetDisplayFlag 22 1
+    SaveTIFF $env(SUBJECTS_DIR)/${subject}/tmp/${subject}_${label}_2.tif
+}
+
+
+
+exit
+
+
+#=============================================

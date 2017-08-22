@@ -1,0 +1,25 @@
+						<!--</table>
+					</td>
+				</tr>
+				<tr>
+					<td width="50%" valign=top>
+						<table class="TFtable" border="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="50%" valign=top>
+									<img src="SubID_matrix.png" alt="matrix" width="100%" style="vertical-align:bottom; background-color:white; padding-top:15px; padding-bottom:35px;">
+								</td>
+								<td width="50%" valign=top>
+									<img src="SubID_scatter_label.png" alt="scatter" width="100%" style="vertical-align:bottom; margin:auto; padding-top:15px; background-color:white; padding-bottom:35px;">
+								</td>
+							</tr>
+							<tr>
+								<td align=left colspan="2"><p class="hstrong">BOLD Protocol: </p><p>seqinfo</p></td>
+							</tr>-->
+						</table>
+					</td>
+					
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>

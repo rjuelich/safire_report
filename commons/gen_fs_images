@@ -1,0 +1,20 @@
+#!/bin/sh
+
+. load_fsl 4.1.7
+
+SUBJECTS_DIR=`pwd`
+#cases=$1
+
+for case in $1
+do
+	if [ ! -e ${case}_FS/tmp/${case}_axial_1.tif ] #&& [ ${HOSTNAME} = "nexlin8" ]
+	then 
+        	log=${case}_FS/tmp/${case}_fsimg.log
+		vglrun tkmedit ${case}_FS T1.mgz lh.white -aux wm.mgz -aux-surface rh.white -segmentation aseg.mgz /cluster/nrg/tools/0.10.0b/apps/arch/linux_x86_64/freesurfer/4.5.0/FreeSurferColorLUT.txt -tcl ${SUBJECTS_DIR}/tkmedit_6sl.tcl 2&>$log
+	#elif [ ! -e ${case}_FS/tmp/${case}_axial_1.tif ] && [ ! ${HOSTNAME} = "nexlin8" ]
+	#then
+        #	log=${case}_FS/tmp/${case}_fsimg.log
+	#	tkmedit ${case}_FS T1.mgz lh.white -aux wm.mgz -aux-surface rh.white -segmentation aseg.mgz /cluster/nrg/tools/0.10.0b/apps/arch/linux_x86_64/freesurfer/4.5.0/FreeSurferColorLUT.txt -tcl ${SUBJECTS_DIR}/tkmedit_6sl.tcl 2&>$log
+	fi
+	echo "${case} completed." >> $log
+done

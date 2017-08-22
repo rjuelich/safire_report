@@ -1,0 +1,6 @@
+<tr> 
+	<th bgcolor=#999999>Measure</th>
+	<th bgcolor=#999999>Value</th>
+	<th bgcolor=#999999>Z-score</th>
+	<th bgcolor=#999999>Percentile</th>
+</tr>

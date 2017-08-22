@@ -1,0 +1,23 @@
+#!/bin/sh
+
+SUBJECTS_DIR=`pwd`
+cases=$*
+
+for case in $cases
+do
+	for hem in lh rh
+	do
+		if [ ! -e ${case}_FS/tmp/infl_${hem}_ant.tif ] #&& [ ${HOSTNAME} = "nexlin8" ]
+		then 
+            		log=${case}_FS/tmp/${case}_${hem}_fssurf.log
+			#tksurfer ${case}_FS $hem inflated -tcl /autofs/cluster/nrg/tools/0.9.9/code/morphometry/tcl/tksurfer.tcl 2&>$log 
+			vglrun tksurfer ${case}_FS $hem inflated -tcl /autofs/cluster/nrg/tools/0.9.9/code/morphometry/tcl/tksurfer.tcl 2&>$log 
+		#else
+		#	log=${case}_FS/tmp/${case}_${hem}_fssurf.log
+			#tksurfer ${case}_FS $hem inflated -tcl /autofs/cluster/nrg/tools/0.9.9/code/morphometry/tcl/tksurfer.tcl 2&>$log 
+		#	tksurfer ${case}_FS $hem inflated -tcl /autofs/cluster/nrg/tools/0.9.9/code/morphometry/tcl/tksurfer.tcl 2&>$log
+		fi
+		echo "Completed ${hem}." >> $log
+		echo "***************************************" >> $log
+	done
+done

@@ -1,0 +1,7 @@
+  <tr>
+    <th bgcolor=#999999>Brain Structures</th>
+    <th bgcolor=#999999>LH Z-score</th>
+    <th bgcolor=#999999>LH %</th>
+    <th bgcolor=#999999>RH Z-score</th>
+    <th bgcolor=#999999>RH %</th>
+  </tr>

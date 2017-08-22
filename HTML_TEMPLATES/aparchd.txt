@@ -1,0 +1,15 @@
+      		</table>
+	</td>
+	<td width=50% valign=top>
+          <table class="TFtable" border=0 cellpadding="2" cellspacing="0" width="100%" style="border-collapse: collapse;">
+            <tr>
+						    	<th bgcolor="white" colspan="1"></th>
+						    	<th class="strong" bgcolor=#999999 colspan="4">Age-Normalized Cortical Thickness</th>
+					    	</tr>  
+	  <tr>
+                <th bgcolor=#999999>Cortical Brain Region</th>
+                <th bgcolor=#999999>LH Z-score</th>
+                <th bgcolor=#999999>LH %</th>
+                <th bgcolor=#999999>RH Z-score</th>
+                <th bgcolor=#999999>RH %</th>
+          </tr>

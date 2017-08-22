@@ -1,0 +1,17 @@
+							<tr>
+						    		<th
+bgcolor="white" colspan="1"></th>
+						    		<th
+class="strong" bgcolor=#999999 colspan="4">Group-to-Individual fcMRI
+Relationship</th>
+					    		</tr>
+							<tr>
+								<th
+bgcolor=#999999>QC Measure</th>
+								<th
+bgcolor=#999999>Value</th>
+								<th
+bgcolor=#999999>Z-score</th>
+								<th
+colspan="2" bgcolor=#999999>Percentile</th>
+							</tr>

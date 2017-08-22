@@ -1,0 +1,11 @@
+Cerebral-WM,Cerebral-WM
+Cerebral-Cortex,Cerebral-GM
+Cerebellum-WM,Cerebellum-WM
+Thalamus-Proper,Thalamus
+VentralDC,Ventral-Diencephalon
+Hippocampus,Hippocampus
+Amygdala,Amygdala
+Putamen,Putamen
+Caudate,Caudate
+Pallidum,Pallidum
+Accumbens-area,Nucleus-Accumbens
