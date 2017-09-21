@@ -15,6 +15,19 @@ norm_dir="${SCRIPT_DIR}/NORMS/QC"
 qct="${sdir}/${sub}_qc_table.txt"
 nsubs=`wc -l ${norm_dir}/${age}/${age}s.txt | awk '{print $1+2}'`
 
+# Create summary and concise csv files
+summary="${study_dir}/${sub}/${sub}_mri_func_summary.csv"
+# concise="${study_dir}/${sub}/${sub}_mri_func_concise.csv"
+
+if [ -e ${summary} ]
+then
+	header=`cat ${summary} | head -1`
+	content=`cat ${summary} | tail -1`
+else
+	header=""
+	content=""
+fi
+
 if [ -e ${qct} ]
 then
 	rm ${qct}
@@ -72,14 +85,39 @@ then
 fi
 
 echo "SNR1 $snr1 $snr1z $snr1pct" >> ${qct}
+roi="SNR1"
+header="${header},${roi}_raw,${roi}_Z_value,${roi}_percentile"
+content="${content},${snr1},${snr1z},${snrpct}"
 
 if [ `echo ${snr2}` != "NA" ]
 then
 	echo "SNR2 $snr2 $snr2z $snr2pct" >> ${qct}
+	roi="SNR2"
+	header="${header},${roi}_raw,${roi}_Z_value,${roi}_percentile"
+	content="${content},${snr2},${snr2z},${snr2pct}"
 fi
+
 echo "Correlation $rv $rz $rpct" >> ${qct}
 echo "Slope $av $az $apct" >> ${qct}
 echo "Intercept $bv $bz $bpct" >> ${qct}
+
+roi="Correlation"
+header="${header},${roi}_raw,${roi}_Z_value,${roi}_percentile"
+content="${content},${rv},${rz},${rpct}"
+
+roi="Slope"
+header="${header},${roi}_raw,${roi}_Z_value,${roi}_percentile"
+content="${content},${av},${az},${apct}"
+
+roi="Intercept"
+header="${header},${roi}_raw,${roi}_Z_value,${roi}_percentile"
+content="${content},${bv},${bz},${bpct}"
+
+
+
+echo $header > ${summary}
+echo $content >> ${summary}
+
 
 exit 0
 

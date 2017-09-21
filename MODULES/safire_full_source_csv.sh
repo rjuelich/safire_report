@@ -1,38 +1,71 @@
+#!/bin/bash
+#
 # Generates the csv that should be used to create html cover page
+#
+# 
+#
+#
 
-study="/eris/sbdp/Data/Ongur/GenoPheno"
-targetfullcsv="/eris/sbdp/Analyses/Ongur/Cohen_Ongur_latest/Cohen_Ongur_GenoPheno_mri.csv"
+SCRIPT_DIR="/eris/sbdp/GSP_Subject_Data/SCRIPTS/gits/safire_package"
+MODULE_DIR="${SCRIPT_DIR}/MODULES"
+commons="${SCRIPT_DIR}/commons"
 
-cd $study
+if [ $# -lt 1 ]
+then
+	echo "Id: safire_full_source_csv.sh,v 2017/08/22 eag66 Exp $"
+        echo "Usage: safire_full_source_csv.sh <study_dir> <study> <target_dir> <target_csv_stem>"
+	exit
+fi
 
-for sub in `ls -1`
-do 
-	for mri in `ls -1 ${sub}/mri/processed/fs450 | grep _FS$ | sed 's/_FS//g'`
-	do header="OLID,MRIID"
+data_dir=$1
+study=$2
+target_dir=$3
+target_csv_stem=$4
+
+# sample call to script
+# safire_full_source_csv.sh "/eris/sbdp/Data/Ongur/GenoPheno" GenoPheno "/eris/sbdp/Analyses/Ongur/Cohen_Ongur_latest" Cohen_Ongur_GenoPheno
+# ./safire_full_source_csv.sh "/eris/ressler/Data" DD "/eris/ressler/Data" "Ressler_DD" 
+
+targetmricsv=${target_csv_stem}"_mri.csv"
+
+cd $data_dir
+
+for sub in `ls -1 | grep M$`
+do
+	if [ ${study} = "GenoPheno" ]
+	then
+		mri_dir="${sub}/mri/processed/fs450"
+	else
+		mri_dir="${sub}/mri"
+	fi
+	for mri in `ls -1 ${mri_dir} | grep _FS$ | sed 's/_FS//g'`
+	do 
+		header="OLID,MRIID"
 		val="${sub},${mri}"
-		for roi in `awk '{print $1}' ${sub}/mri/processed/fs450/${mri}/qc/INDIV_MAPS/${mri}_fssum_table.txt`
+		mri_path="${mri_dir}/${mri}"
+		for roi in `awk '{print $1}' ${mri_path}/qc/INDIV_MAPS/${mri}_fssum_table.txt`
 		do 
-			if [ -e ${sub}/mri/processed/fs450/${mri}/qc/INDIV_MAPS/${mri}_fssum_table.txt ] && [ `grep -w ${roi} ${sub}/mri/processed/fs450/${mri}/qc/INDIV_MAPS/${mri}_fssum_table.txt | awk '{print NF}'` -gt 3 ]
+			if [ -e ${mri_path}/qc/INDIV_MAPS/${mri}_fssum_table.txt ] && [ `grep -w ${roi} ${mri_path}/qc/INDIV_MAPS/${mri}_fssum_table.txt | awk '{print NF}'` -gt 3 ]
 			then 
 				header="${header},L_${roi},R_${roi}"
-				roip=`grep -w ${roi} ${sub}/mri/processed/fs450/${mri}/qc/INDIV_MAPS/${mri}_fssum_table.txt | awk '{OFS=","; printf "%.2f,%.2f\n", $3, $5}'`
+				roip=`grep -w ${roi} ${mri_path}/qc/INDIV_MAPS/${mri}_fssum_table.txt | awk '{OFS=","; printf "%.2f,%.2f\n", $3, $5}'`
 				val="${val},${roip}"
-			elif [ -e ${sub}/mri/processed/fs450/${mri}/qc/INDIV_MAPS/${mri}_fssum_table.txt ] && [ `grep -w ${roi} ${sub}/mri/processed/fs450/${mri}/qc/INDIV_MAPS/${mri}_fssum_table.txt | awk '{print NF}'` -le 3 ]
+			elif [ -e ${mri_path}/qc/INDIV_MAPS/${mri}_fssum_table.txt ] && [ `grep -w ${roi} ${mri_path}/qc/INDIV_MAPS/${mri}_fssum_table.txt | awk '{print NF}'` -le 3 ]
 			then 
 				header="${header},${roi}"
-				roip=`grep -w ${roi} ${sub}/mri/processed/fs450/${mri}/qc/INDIV_MAPS/${mri}_fssum_table.txt | awk '{OFS=","; printf "%.2f\n", $3}'`
+				roip=`grep -w ${roi} ${mri_path}/qc/INDIV_MAPS/${mri}_fssum_table.txt | awk '{OFS=","; printf "%.2f\n", $3}'`
 				val="${val},${roip}"
 			fi
 		done
-		echo ${header}  >> $targetfullcsv
-		echo ${val}  >> $targetfullcsv
+		echo ${header}  >> $targetmricsv
+		echo ${val}  >> $targetmricsv
 	done
 done
 
-cp $targetfullcsv temp.csv
+cp $targetmricsv temp.csv
 
-head -1 temp.csv > $targetfullcsv
+head -1 temp.csv > $targetmricsv
 
-cat temp.csv | grep -v OLID >> $targetfullcsv
+cat temp.csv | grep -v OLID >> $targetmricsv
 
 rm temp.csv

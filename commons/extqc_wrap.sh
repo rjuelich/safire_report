@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+#  extqc_wrap.sh    :  run extqc.py for all BOLD runs in a session
+#
 
 sub=$1
 datadir=$2
@@ -17,13 +20,3 @@ do
 	extqc.py -l ${sub} -s ${run} --xnat ${xnat} -o ${outdir}/${sub}/qc
 done
 
-#if [ `ls -1 ${datadir}/${sub}/bold | grep -c ^0 | awk '{print $1}'` -ge 2 ]
-#then
-#	run1=`ls -1 ${datadir}/${sub}/bold | grep ^0 | head -1 | sed s/^0//g | sed s/^0//g`
-#	run2=`ls -1 ${datadir}/${sub}/bold | grep ^0 | head -2 | tail -1 | sed s/^0//g | sed s/^0//g`
-#	extqc.py -l ${sub} -s ${run1} --xnat ${xnat} -o ${outdir}/${sub}/qc
-#	extqc.py -l ${sub} -s ${run2} --xnat ${xnat} -o ${outdir}/${sub}/qc
-#else
-#	run1=`ls -1 ${datadir}/${sub}/bold | grep ^0 | head -1 | sed s/^0//g | sed s/^0//g`
-#	extqc.py -l ${sub} -s ${run1} --xnat ${xnat} -o ${outdir}/${sub}/qc
-#fi

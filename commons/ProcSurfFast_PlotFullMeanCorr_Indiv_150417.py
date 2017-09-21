@@ -3,16 +3,6 @@
 Conduct group analyses of procsurffast.csh output.
 Must be run from folder containing the processed subjects.
 
-@author: avram.j.holmes@gmail.com
-@version: 1.1
-@date: 2012.16.3
-@deps: NIT 1.3.2+
-@note: verson 1.1 minor bug fixes, corrected error in matlab surface map loop, added eps format 2Dmatrix output
-@note: verson 1.2 minor bug fixes, updated neuro.load to 1.5.2
-
-'''
-
-version = 1.2
 
 import neuro
 neuro.load("1.5.4")

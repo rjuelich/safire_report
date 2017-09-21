@@ -2,9 +2,6 @@
 #
 #  Is designed to run only what has not already completed on each case
 #  
-#  First script to call from cron job 
-
-#SCRIPT_DIR="/eris/sbdp/GSP_Subject_Data/SCRIPTS/PSF_NMR"
 
 SCRIPT_DIR="/eris/sbdp/GSP_Subject_Data/SCRIPTS/gits/safire_package"
 MODULE_DIR="${SCRIPT_DIR}/MODULES"
@@ -48,24 +45,9 @@ then
 	mkdir ${case_dir}/qc/INDIV_MAPS
 fi
 
-
-
 ${MODULE_DIR}/safire_xnat.sh ${case} ${xnat} ${project}
 ${MODULE_DIR}/safire_struc.sh ${case_dir}/${case}_xnat.csv
 ${MODULE_DIR}/safire_func.sh ${case_dir}/${case}_xnat.csv
 ${MODULE_DIR}/safire_html.sh ${case_dir}/${case}_xnat.csv
-
-
-if [ -e ${case_dir}/${case}.readme ]
-then
-	olid=`grep SUBJECT: ${case_dir}/${case}.readme | awk '{print $2}'`
-
-	if [ ! -e ${study_home}/${olid}/safire ]
-	then 
-		mkdir ${study_home}/${olid}/safire
-	fi
-
-	cp ${outdir}/${case}.pdf ${study_home}/${olid}/safire/
-fi
 
 exit 0
