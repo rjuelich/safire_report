@@ -19,10 +19,16 @@ This repository contains all original source code used in creation of the "Struc
 # DESCRIPTION OF PACKAGE CONTENTS
 
 commons: Assortment of bash/MATLAB/Python code used for data visualization (MATLAB), within-subject functional-connectivity analysis (Python), and text parsing/HTML-generation/packaging (bash).
+
 HTML_TEMPLATES: Templates used during compilation of final HTML file.
+
 ICONS: Icons used during compilation of final HTML file.
+
 MODULES: Core modules used for data syncronization, processing, and HTML packaging.
+
 NORMS: Collection of files used during age/brain-volume normalization.
+
 Example_Output.pdf: Example output file.
+
 safire_wrap.sh: Top level wrapper to deploy all underlying code.
 
