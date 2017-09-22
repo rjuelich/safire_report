@@ -1,8 +1,6 @@
 %=========================================================================
 %
-% This script couples with PlotFullMeanCorr_Matrix.m to generate output
-% graphs
-% Avram Holmes (avram.j.holmes@gmail.com) 3/11/13
+% This script couples with PlotFullMeanCorr_Matrix.m to generate output graphs
 
 
 function PlotCorrMatrix(corr_mat,SaveName,labelData)
